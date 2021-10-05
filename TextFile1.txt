@@ -1,0 +1,10 @@
+To connect to SQL database:
+
+//first add package manager in PM console, good for when you know what you're installing
+1. install-package Microsoft.EntityFrameworkCore.Tools <enter> (up arrow)
+2. install-package Microsoft.EntityFrameworkCore.SqlServer <enter>
+3. scaffold-dbcontext "server=localhost\sqlexpress;database=EdDb;trusted_connection=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models <enter>
+-Build should start and succeed
+
+//then connect db class generated to program class
+var _context = new EdDbContext();
