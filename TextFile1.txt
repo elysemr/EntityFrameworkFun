@@ -8,3 +8,37 @@ To connect to SQL database:
 
 //then connect db class generated to program class
 var _context = new EdDbContext();
+
+PRACTICING WITH ENTITY FRAMEWORK: DO MORE OF THIS, GET IT TO WORK
+//find students with gpas > avg
+            //var gpa = from s in students select new { s.Gpa };
+            //var sum = s.gpa.Sum();
+            //var gpa_avg = s.gpa.Average();
+
+
+            //var state = from st in students where st.StateCode == "OH" select st;
+            //foreach(var st in state) 
+            //{
+            //    Console.Write(state);
+            //}
+
+//work 10/5
+            //establish context and declare vars and actions, display majors table
+            var _context = new EdDbContext();
+            //now can use the DB
+            var majors = _context.Majors.ToList();
+            var students = _context.Students.ToList();
+            foreach (var m in majors)
+            {
+                Console.WriteLine($"{m.Description}");
+            }
+
+            //join student and major tables, display name and major name
+            var result = from s in students
+                         join m in majors
+                         on s.MajorId equals m.Id
+                         select new { s, m };
+            foreach (var sm in result)
+            {
+                Console.WriteLine($"{sm.s.Firstname} {sm.s.Lastname} | {sm.m.Description}");
+            }

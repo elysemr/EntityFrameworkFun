@@ -7,6 +7,10 @@ namespace EntityFrameworkFun.Models
 {
     public partial class Major
     {
+        public override string ToString()
+        {
+            return $"{Id} | {Code} | {Description} | {MinSat}"; //makes it so in program only have to write cw
+        }
         public Major()
         {
             MajorClasses = new HashSet<MajorClass>();
