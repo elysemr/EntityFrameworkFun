@@ -42,3 +42,9 @@ PRACTICING WITH ENTITY FRAMEWORK: DO MORE OF THIS, GET IT TO WORK
             {
                 Console.WriteLine($"{sm.s.Firstname} {sm.s.Lastname} | {sm.m.Description}");
             }
+
+//added to end of student class to display data w/ nulls that previously wouldn't display
+     public override string ToString()
+        {
+            return $"{Id} | {Firstname} {Lastname} | {Sat}/{Gpa} | {(MajorId == null ? "Undecided" : Major.Description)}";
+        }

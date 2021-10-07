@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkFun.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,14 @@ namespace EntityFrameworkFun.Controllers
             _context = new EdDbContext();
         }
         
-        public List<Major> GetAll()
+        public async Task<List<Major>> GetAll()
         {
-            return _context.Majors.ToList();
+            return await _context.Majors.ToListAsync();
         }
 
-        public Major GetByPk(int Id)
+        public async Task<Major> GetByPk(int Id)
         {
-            return _context.Majors.Find(Id); //can only use find on PK
+            return await _context.Majors.FindAsync(Id); //can only use find on PK
         }
 
         public Major GetByCode(string Code)

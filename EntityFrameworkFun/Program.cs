@@ -2,13 +2,25 @@
 using EntityFrameworkFun.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkFun
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            var majCtrl = new MajorsController();
+            var majors = await majCtrl.GetAll(); //await bc we want list of majors using async
+            majors.ForEach(m => Console.WriteLine(m));
+
+
+            var major = await majCtrl.GetByPk(4); //when hover over var, should just be type not task to know doing it right
+            Console.WriteLine(major);
+        }
+
+
+        static void XX() { 
             Student student = null;
             var studentsCtrl = new StudentsController();
 
@@ -24,6 +36,11 @@ namespace EntityFrameworkFun
             };
             studentsCtrl.Create(NewStudent);
 
+            var rs = studentsCtrl.Remove(NewStudent.Id);
+
+            NewStudent.StateCode = "OH";
+            studentsCtrl.Change(NewStudent.Id, NewStudent);
+
 
             var students = studentsCtrl.GetAll();
             foreach (var s in students)
@@ -31,8 +48,10 @@ namespace EntityFrameworkFun
                 Console.WriteLine($"{s.Firstname} {s.Lastname} | {s.StateCode} | {s.Sat}");
             }
 
-            //student = studentsCtrl.GetByPk(44);
-            //Console.WriteLine($"{student.Firstname} {student.Lastname} | {student.Sat} | {student.Gpa}");
+            student = studentsCtrl.GetByPk(44);
+            Console.WriteLine($"{student.Firstname} {student.Lastname} | {student.Sat} | {student.Gpa}");
+
+            
 
 
 
@@ -83,16 +102,16 @@ namespace EntityFrameworkFun
                                           //} else 
                                           //Console.WriteLine($"{major.Code}");
 
-                major = majorsCtrl.GetByPk(4);
+               // major = majorsCtrl.GetByPk(4);
                 Console.WriteLine($"{major.Description}");
 
 
                 var majors = majorsCtrl.GetAll();
 
-                foreach (var m in majors)
-                {
-                    Console.WriteLine($"{m.Description}");
-                }
+               // foreach (var m in majors)
+               // {
+                    //Console.WriteLine($"{m.Description}");
+                //}
 
 
                 //if want to make exception or cw for something not there
